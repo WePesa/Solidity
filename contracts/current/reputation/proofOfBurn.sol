@@ -1,8 +1,9 @@
-import './feedback.sol';
+import './Reputation.sol';
 
-contract proofOfBurn is feedback{
+contract proofOfBurn is Reputation{
 
   address proofOfBurnAddr = 0x0000000000000000000000000000000000000000;
+  event _coinsBurned(address indexed user, uint indexed amountBurned);
 
   function showBurnedCoins(address user) returns (uint){
     return users[user].burnedCoins;
