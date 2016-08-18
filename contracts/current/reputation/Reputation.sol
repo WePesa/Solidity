@@ -25,10 +25,9 @@ contract Reputation {
   event _negativeReputation(address indexed user);
   event _addUser(string indexed username, string indexed location, address indexed user);
   event _newTrade(address indexed vendor, address indexed buyer);
-  event _removedUser(address indexed user);
   event _viewedReputation(address indexed user, uint indexed positive, uint indexed negative, uint total);
 
-  function(){ if(msg.value != 0.0001) throw; } //if not paying the fee then throw and refund
+  function(){ if(msg.value != 0.0001 ether) throw; } //if not paying the fee then throw and refund
 
   function Reputation(){ owner = msg.sender; }
 
@@ -64,18 +63,11 @@ contract Reputation {
         }
       }
     }
-    payAdmins();
   }
 
   function viewReputation(address user) returns (uint, uint, uint){
     _viewedReputation(user,users[user].positive, users[user].negative, users[user].total);
     return(users[user].positive, users[user].negative, users[user].total);
-  }
-
-  function removeUser(address addr) adminOnly returns (bool){
-    delete users[addr];
-    _removedUser(addr);
-    return true;
   }
 
 }
